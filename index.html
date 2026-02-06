@@ -3,26 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Exam Portal | Nootech Computer Centre</title>
+  <title>Internal_Test | Nootech Computer Centre</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Inter', sans-serif; background: #ffffff; color: #1f2937; }
 
+    /* ===== HERO SECTION ===== */
     header {
-      background: linear-gradient(120deg, #1e3a8a, #3b82f6);
+     background: linear-gradient(135deg, #fffde7, #ffd54f, #1e3a8a);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
       color: #fff;
-      padding: 60px 20px;
+      padding: 70px 20px;
       text-align: center;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
     }
-    h4 {
-      font-style: bold;
-      color: #fff;
-    }
-    header h1 { font-size: 2.8rem; margin-bottom: 15px; }
-    header h3 { font-weight: 400; font-size: 1.2rem; max-width: 800px; margin: auto; }
-     h4 { font-weight: 300; font-size: 1.2rem; max-width: 800px; margin: auto; }
 
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header h1 { font-size: 2.8rem; margin-bottom: 15px; font-weight: 700; }
+    header h3 { font-weight: 400; font-size: 1.2rem; max-width: 800px; margin: auto; }
+
+    /* ===== FORM SECTION ===== */
     .form-section {
       padding: 60px 20px;
       max-width: 1000px;
@@ -40,13 +49,29 @@
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
+	  /* ===== CTC BUTTON SECTION ===== */
+	   .cta-button {
+      display: inline-block;
+      padding: 12px 24px;
+      background: #1e3a8a;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s;
+    }
+    .cta-button:hover {
+      background: #3b82f6;
+    }
+	
+	/* ===== FOOTER ===== */
     .footer {
       background: #0f172a;
       color: #fff;
       text-align: center;
       padding: 40px 20px;
       font-size: 0.95rem;
+      border-top: 3px solid #ff7e5f;
     }
 
     .social-links {
@@ -58,10 +83,11 @@
       color: #fff;
       font-size: 1.2rem;
       text-decoration: none;
-      transition: color 0.3s;
+      transition: transform 0.3s, color 0.3s;
     }
     .social-links a:hover {
-      color: #3b82f6;
+      transform: scale(1.1);
+      color: #feb47b;
     }
 
     .social-links img {
@@ -69,27 +95,38 @@
       height: 24px;
       vertical-align: middle;
     }
+	 #timeUpMsg {
+      display: none;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #b91c1c;
+      margin-top: 40px;
+    }
+		
   </style>
 </head>
 <body>
 
   <header>
-    <h1>Welcome to Nootech Computer Centre's Exam Portal(INTERNAL)</h1>
-    <h3>"A government-certified organization proudly continuing its successful journey in the IT-educational field for the last 7 years."</h3>
-    <h4>An Authorized Learning Centre Of OKCL(OS-CIT – ଓଡିଶା ରାଜ୍ୟ ମୁକ୍ତ ବିଶ୍ୱବିଦ୍ୟାଳୟ ପ୍ରମାଣିତ ସନଦ)</h4>
+     <h1>Welcome to Nootech Computer Centre's Internal Test Portal</h1>
+    <h3>An Authorized Learning Centre Of OKCL(OS-CIT – ଓଡିଶା ରାଜ୍ୟ ମୁକ୍ତ ବିଶ୍ୱବିଦ୍ୟାଳୟ ପ୍ରମାଣିତ ସନଦ)</h3>
     <h4>An Authorized Facilitation Centre for CCC/BCC Examination NIELIT, MeitY, Govt. of India(ଭାରତ ସରକାର)</h4>
+     <div class="timer" id="timer">Exam Time: 60:00</div>
   </header>
 
   <section class="form-section">
-    <p>Please fill out the form below to take the exam:</p>
+    <p id="instruction-text">Please click the button below to start the exam:</p>
+    <div id="start-btn-section" style="text-align:center; margin-top: 30px;">
+      <a href="#" onclick="openExam(); return false;" class="cta-button">Start Exam</a>
+    </div>
 
-     <!--  EXAM FORM LINK NO EXAM FORM URL https://forms.gle/ux4p4Ti65GBbTcLm6 -->
-
-    <iframe src="https://forms.gle/ux4p4Ti65GBbTcLm6" allowfullscreen></iframe>
+    <!-- Hidden iframe initially -->
+    <iframe id="examFrame"></iframe>
+    <p id="timeUpMsg">⏰ Time’s up! Your exam has ended. Please ensure your responses are submitted.</p>
   </section>
 
   <div class="footer">
-    &copy; 2025 Nootech Computer Centre. All rights reserved. | Empowering Digital Literacy |  <a href="https://nootechcomputercentre.github.io/main-site/"target="_blank">Visit Our Site</a>
+       &copy; 2025 Internal Test Porta | Nootech Computer Centre. All rights reserved. | Empowering Digital Innovation |  <a href="https://nootechcomputercentre.github.io/main-site/"target="_blank">Visit Our Site</a>
     <div class="social-links">
       <a href="https://facebook.com/yourpage" target="_blank" title="Facebook">
         <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
@@ -99,25 +136,48 @@
       </a>
     </div>
   </div>
+   <script>
+    let timerInterval;
+
+    function openExam() {
+      const frame = document.getElementById('examFrame');
+      const btnSection = document.getElementById('start-btn-section');
+      const instructionText = document.getElementById('instruction-text');
+      const timerDisplay = document.getElementById('timer');
+
+       <!--  EXAM FORM LINK NO EXAM FORM URL https://forms.gle/ux4p4Ti65GBbTcLm6 -->
+
+      frame.src = "https://forms.gle/ux4p4Ti65GBbTcLm6";
+      frame.style.display = "block";
+      btnSection.style.display = "none";
+      instructionText.style.display = "none";
+
+      startTimer(60 * 60, timerDisplay); // 60 minutes
+    }
+
+    function startTimer(duration, display) {
+      let timer = duration, minutes, seconds;
+      timerInterval = setInterval(() => {
+        minutes = Math.floor(timer / 60);
+        seconds = timer % 60;
+        display.textContent = `Exam Time: ${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        
+        if (--timer < 0) {
+          clearInterval(timerInterval);
+          endExam();
+        }
+      }, 1000);
+    }
+
+    function endExam() {
+      const frame = document.getElementById('examFrame');
+      const msg = document.getElementById('timeUpMsg');
+      frame.style.display = "none";
+      msg.style.display = "block";
+      document.getElementById('timer').textContent = "Exam Ended";
+      alert("⏰ Time is up! Your exam session has ended.");
+    }
+  </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
